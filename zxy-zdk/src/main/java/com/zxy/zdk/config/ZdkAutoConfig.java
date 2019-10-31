@@ -40,6 +40,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.zxy.zdk.business.containers.ZdkBusinessCommonContainer;
+import com.zxy.zdk.chain.InvokeCommandChain;
 import com.zxy.zdk.domain.factory.DomainFactory;
 
 
@@ -68,20 +69,17 @@ public class ZdkAutoConfig implements ApplicationContextAware {
 		this.autowireFactory = applicationContext.getAutowireCapableBeanFactory();
 	}
 	
-	
 	/**
-	 * 实体工厂 
+	 * @category 实体工厂 
 	 */
 	@Bean
 	public DomainFactory domainFactory(){
 		
 		return  new DomainFactory();
-		
 	}
 	
-	
 	/**
-	 * 活动记录集 
+	 * @category 活动记录集 
 	 */
 	@Bean
 	@ConditionalOnProperty({"cnvex.mdk.autoconfig.moduleName"})
@@ -90,6 +88,15 @@ public class ZdkAutoConfig implements ApplicationContextAware {
 		String moduleName = zdkProperties.getModuleName();
 		
 		return new ZdkBusinessCommonContainer(moduleName);
-		
 	}
+	
+	/**
+	 * @category 责任链 
+	 */
+	@Bean
+	public InvokeCommandChain invokeCommandChain() {
+		
+		return new InvokeCommandChain();
+	}
+	
 }
