@@ -47,9 +47,25 @@ public class ZdkProperties implements InitializingBean {
 	/** 是否打开自动配置 */
 	private boolean enable = true;
 	
+	/** 
+	 * 流程引擎 流程图定义的路径 （可自定义修改） 
+	 * <pre>
+	 * 	 支持多路径的配置，通过";"隔离
+	 * </pre> 
+	 */
+	private String flowFiles ="classpath*:/flow/**/*.xml";
+	
 	/** SOA分布式系统结构下， 系统模块名 */
 	private String  moduleName;
 	
+	public String getFlowFiles() {
+		return flowFiles;
+	}
+
+	public void setFlowFiles(String flowFiles) {
+		this.flowFiles = flowFiles;
+	}
+
 	public boolean isEnable() {
 		return enable;
 	}
@@ -88,8 +104,9 @@ public class ZdkProperties implements InitializingBean {
 	}
 
 	public String toString() {
-		return "ExecutorProperties(enable=" + this.isEnable() + ", moduleName=" + this.getModuleName();
+		return "Properties(enable=" + this.isEnable() + ", moduleName=" + this.getModuleName() + ",flowFiles=" + this.getFlowFiles();
 	}
+ 
 	
 	/**
 	 * @throws Exception
